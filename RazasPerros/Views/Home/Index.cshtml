@@ -1,0 +1,32 @@
+﻿@model  RazasPerros.Models.IndexViewModel
+@{
+	Layout = "_Layout";
+}
+
+<section class="nav">
+	<h3>ABC de Razas</h3>
+    <nav>
+        <a href="~/Home/Index">Todas</a>
+
+        @foreach (var item in Model.LetrasIniciales.Distinct())
+        {
+            <a href="~/Home/Index/@item">@item</a>
+        }
+
+        <a href="~/Home/RazasPorPais">Listado por país</a>
+    </nav>
+</section>
+<section class="list">
+	<ul>
+		@foreach (var item in Model.Razas)
+		{
+			<li>
+				<a href="/Raza/@item.Nombre.Replace(" ","-")">
+					<img src="~/imgs_perros/@(item.Id)_0.jpg">
+					@item.Nombre
+				</a>
+			</li>
+		}
+	</ul>
+</section>
+

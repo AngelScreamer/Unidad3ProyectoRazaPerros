@@ -1,0 +1,87 @@
+﻿@model RazasPerros.Models.ViewModels.AdminRazaViewModel
+
+@{ Layout = "_Layout"; }
+
+<form enctype="multipart/form-data" asp-area="Admin" asp-controller="Home" asp-action="Editar" method="post">
+    <h2>Editar raza de perro.</h2>
+    <label>Código:</label>
+    <input type="text" asp-for="Raza.Id" required />
+    <label>Nombre:</label>
+    <input type="text" asp-for="Raza.Nombre" required /> <br />
+    <label>Descripción:</label>
+    <textarea asp-for="Raza.Descripcion"></textarea>
+    <label>Otros nombres:</label>
+    <input type="text" asp-for="Raza.OtrosNombres" required />
+    <label>País:</label>
+    <select asp-for="Raza.IdPais" asp-items="@(new SelectList(Model.Paises,"Id","Nombre"))">
+        <option>Seleccione un país</option>
+    </select><br />
+    <label>Peso mínimo:</label>
+    <input type="number" asp-for="Raza.PesoMin" required />
+    <label>Peso máximo:</label>
+    <input type="number" asp-for="Raza.PesoMax" required /> <br />
+    <label>Altura mínima:</label>
+    <input type="number" asp-for="Raza.AlturaMin" required />
+    <label>Altura máxima:</label>
+    <input type="number" asp-for="Raza.AlturaMax" required /> <br />
+    <label>Esperanza de vida:</label>
+    <input type="number" asp-for="Raza.EsperanzaVida" required />
+
+    <h2>Estadísticas.</h2>
+    <label>Nivel de energía:</label>
+    <input type="number" max="10" min="0" asp-for="Raza.Estadisticasraza.NivelEnergia" required />
+    <label>Facilidad de entrenamiento:</label>
+    <input type="number" max="10" min="0" asp-for="Raza.Estadisticasraza.FacilidadEntrenamiento" required /> <br />
+    <label>Ejercicio obligatorio:</label>
+    <input type="number" max="10" min="0" asp-for="Raza.Estadisticasraza.EjercicioObligatorio" required />
+    <label>Amistad con desconocidos:</label>
+    <input type="number" max="10" min="0" asp-for="Raza.Estadisticasraza.AmistadDesconocidos" required /><br />
+    <label>Amistad con perros:</label>
+    <input type="number" max="10" min="0" asp-for="Raza.Estadisticasraza.AmistadPerros" required />
+    <label>Necesidad de cepillado:</label>
+    <input type="number" max="10" min="0" asp-for="Raza.Estadisticasraza.NecesidadCepillado" required /><br />
+
+    <h2>Características Físicas.</h2>
+    <label>Patas:</label>
+    <input type="text" asp-for="Raza.Caracteristicasfisicas.Patas" required />
+    <label>Cola:</label>
+    <input type="text" asp-for="Raza.Caracteristicasfisicas.Cola" required /><br />
+    <label>Hocico:</label>
+    <input type="text" asp-for="Raza.Caracteristicasfisicas.Hocico" required />
+    <label>Pelo:</label>
+    <input type="text" asp-for="Raza.Caracteristicasfisicas.Pelo" required /><br />
+    <label>Color:</label>
+    <input type="text" asp-for="Raza.Caracteristicasfisicas.Color" required /><br />
+
+    <input type="file" accept="image/jpg" asp-for="Archivo" onchange="mostrarImagen(this)" /><br />
+    <img id="imagePreview" src="~/imgs_perros/@Model.Imagen" alt="Vista previa de la imagen" />
+
+    <label id="error">
+        @Html.ValidationSummary()
+    </label>
+
+    <div class="botones">
+        <input class="btnSumbit" type="submit" value="Editar" />
+        <a href="~/Admin/Home">
+            <input type="button" value="Cancelar" />
+        </a>
+    </div>
+</form>
+
+<script>
+    function mostrarImagen(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("imagePreview").src = e.target.result;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+
+
+
+
+
